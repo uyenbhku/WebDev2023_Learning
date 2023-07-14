@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Management</title>
+    <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+    <h1>Share your cat, share your pride</h1>
+    
+    <section id="create-cat">
+        <h2>Share your cat</h2>
+        <form id="catForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required/>
+            <br>
+            
+            <label for="stage">Stage</label>
+            <select id="stage" name="stage" required>
+                <option value="" selected>Select stage</option>
+                <option value="kitten">Kitten</option>
+                <option value="young">Young</option>
+                <option value="adult">Adult</option>
+            </select>
+            <br>
+            
+            <label for="breed">Breed</label>
+            <input type="text" id="breed" name="name" required> 
+            <br>       
+            <button type="submit">Share!</button> 
+        </form>
+    </section>
+
+    <section id="cats">
+        <h2>See others' pride!</h2>
+        <ul id="cat-list" class="cat-list">
+            <li class="cat-item">
+                <a class="cat-item-link" href="https://moderncat.com/entry/milo-43082/">
+                    <img class="cat-item-img"
+                        src="https://moderncat.com/wp-content/uploads/2023/03/DSC_2970-5-1-600x600.jpg"
+                    />
+                    <div class="cat-item-desc">
+                        <h3 class="cat-item-name">Milo</h3>
+                        <p class="cat-item-stage">Kitten</p>
+                        <p class="cat-item-breed">Mixed</p>
+                    </div>
+                </a>
+            </li>
+            <li class="cat-item">
+                <a class="cat-item-link" href="https://www.purina.co.uk/find-a-pet/cat-breeds/persian-long-hair">
+                    <img class="cat-item-img"
+                        src="https://www.purina.co.uk/sites/default/files/2022-06/Persian-Long-Hair.jpg?itok=OEork2Dh"
+                    />
+                    <div class="cat-item-desc">
+                        <h3 class="cat-item-name">Gina</h3>
+                        <p class="cat-item-stage">Adult</p>
+                        <p class="cat-item-breed">Persian</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <script>
+        // Create a function to set .cat-item background color based on the cat-item-name value
+      function generateLinearGradient(text) {
+        // encode name 
+		let encoded_name = 0;
+		for (let letter of text) {
+			
+		}
+
+        return `linear-gradient(45deg, ${color1}, ${color2})`;
+      }
+
+      function setCatItemColor() {
+        const catItems = document.querySelectorAll(".cat-item");
+        catItems.forEach((catItem) => {
+          const catItemName = catItem.querySelector(".cat-item-name");
+          const catItemNameValue = catItemName.textContent;
+          // Random random gradient color base on the catItemNameValue text
+          const linearGradient = generateLinearGradient(catItemNameValue);
+          catItem.style.background = linearGradient;
+        });
+      }
+
+      // Function to handle form submission
+      function addCatItem(event) {
+        event.preventDefault();
+
+        // Get form values
+        let name = document.getElementById("name").value;
+        let stage = document.getElementById("stage").value;
+        let breed = document.getElementById("breed").value;
+
+        // Create cat item HTML
+        let catItemHTML = `
+            <li class="cat-item">
+              <a class="cat-item-link" href="#">
+                <img
+                  class="cat-item-img"
+                  src="https://www.purina.co.uk/find-a-pet/cat-breeds/persian-long-hair"
+                />
+                <div class="cat-item-desc">
+                  <h3 class="cat-item-name">${name}</h3>
+                  <p class="cat-item-stage">${stage.charAt(0).toUpperCase() + stage.substr(1)}</p>
+                  <p class="cat-item-breed">${breed}</p>
+                </div>
+              </a>
+            </li>
+          `;
+
+        // Append cat item to the cat list
+        let catList = document.getElementById("cat-list");
+        catList.insertAdjacentHTML("afterend", catItemHTML);
+
+        // Reset the form
+        document.getElementById("catForm").reset();
+        setCatItemColor();
+      }
+
+      // listen to the form
+      let catForm = document.getElementById("catForm");
+      catForm.addEventListener("submit", addCatItem);
+
+      setCatItemColor();
+    </script>
+</body>
+</html>
