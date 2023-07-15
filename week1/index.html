@@ -66,14 +66,21 @@
     <script>
         // Create a function to set .cat-item background color based on the cat-item-name value
       function generateLinearGradient(text) {
-        // encode name 
-		let encoded_name = 0;
-		for (let letter of text) {
-			
-		}
+          // encode name 
+          let color1 = 0;
+          let color2 = 0;
+          for (let letter of text) {
+              if (letter.toLowerCase() != letter.toUpperCase()){
+                color1 += Math.floor(letter.toUpperCase().codePointAt(0) * 255 / 65);
+                color2 += Math.floor(letter.toLowerCase().codePointAt(0) * 255 / 97);
+              }
+          }
+          color1 = (color1 % 16777216).toString(16);
+          color2 = (color2 % 16777216).toString(16);
+          console.log(`color 1: ${color1}, color 2: ${color2}`)
 
-        return `linear-gradient(45deg, ${color1}, ${color2})`;
-      }
+          return `linear-gradient(45deg, #${color1}, #${color2})`;
+        }
 
       function setCatItemColor() {
         const catItems = document.querySelectorAll(".cat-item");
